@@ -1,0 +1,24 @@
+/*
+ * Diseño del botón redondeado con efecto hover.
+ * En JavaFX, las esquinas redondeadas se logran con -fx-background-radius
+ * (ya no hace falta sobrescribir paintComponent como en Swing).
+ */
+.boton-redondeado {
+    -fx-font-family: 'Segoe UI';
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+
+    -fx-text-fill: white;
+    -fx-background-color: #0d6efd;   /* Azul Bootstrap */
+    -fx-background-radius: 15;       /* Esquinas redondeadas (15 px) */
+
+    -fx-padding: 10 20 10 20;
+    -fx-pref-width: 200;
+    -fx-pref-height: 40;
+    -fx-cursor: hand;
+}
+
+/* EFECTO HOVER: se activa al pasar el mouse por encima */
+.boton-redondeado:hover {
+    -fx-background-color: #0b5ed7;   /* Azul más oscuro */
+}
