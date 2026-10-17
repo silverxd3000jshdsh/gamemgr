@@ -49,7 +49,11 @@ public class MiPrimeraVentana extends Application {
         // 6. Configuración de la ventana principal
         ventana.setTitle("Panel de Control Moderno");
         ventana.setScene(escena);
-        ventana.setResizable(false);
+        // Permite usar los botones nativos de minimizar/maximizar
+        // de la barra de título y redimensionar la ventana.
+        ventana.setResizable(true);
+        ventana.setMinWidth(380);
+        ventana.setMinHeight(250);
         ventana.show();
     }
 
