@@ -5,22 +5,33 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.ejemplo</groupId>
-    <artifactId>prueba</artifactId>
+    <artifactId>gamemgr</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Prueba</name>
+    <name>GameMgr</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>27</maven.compiler.release>
         <javafx.version>27</javafx.version>
+
+        <!-- Módulo y clase principal de la aplicación -->
+        <app.module>com.ejemplo.gamemgr</app.module>
+        <app.mainClass>com.ejemplo.app.GameMgr</app.mainClass>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
+        <!-- Necesario para convertir los iconos del sistema (Swing) a imágenes JavaFX -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
             <version>${javafx.version}</version>
         </dependency>
     </dependencies>
@@ -39,10 +50,57 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>com.ejemplo.prueba/com.ejemplo.app.MiPrimeraVentana</mainClass>
+                    <mainClass>${app.module}/${app.mainClass}</mainClass>
                     <options>
                         <option>--enable-native-access=javafx.graphics</option>
                     </options>
+                </configuration>
+            </plugin>
+
+            <!-- Copia JavaFX (y demás dependencias) a target/mods para el empaquetado -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.8.1</version>
+                <executions>
+                    <execution>
+                        <id>copiar-modulos</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/mods</outputDirectory>
+                            <includeScope>runtime</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--
+                Crea la aplicación empaquetada (.exe) con jpackage:
+                    mvn clean package org.panteleyev:jpackage-maven-plugin:1.8.0:jpackage
+                El resultado queda en:  target/dist/GameMgr/
+            -->
+            <plugin>
+                <groupId>org.panteleyev</groupId>
+                <artifactId>jpackage-maven-plugin</artifactId>
+                <version>1.8.0</version>
+                <configuration>
+                    <name>GameMgr</name>
+                    <appVersion>1.0.0</appVersion>
+                    <vendor>GameMgr</vendor>
+                    <destination>${project.build.directory}/dist</destination>
+                    <!-- APP_IMAGE genera la carpeta con GameMgr.exe sin necesitar WiX -->
+                    <type>APP_IMAGE</type>
+                    <module>${app.module}/${app.mainClass}</module>
+                    <modulePaths>
+                        <modulePath>${project.build.directory}/mods</modulePath>
+                        <modulePath>${project.build.directory}/${project.build.finalName}.jar</modulePath>
+                    </modulePaths>
+                    <javaOptions>
+                        <option>--enable-native-access=javafx.graphics</option>
+                    </javaOptions>
                 </configuration>
             </plugin>
         </plugins>

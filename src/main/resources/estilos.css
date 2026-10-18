@@ -1,24 +1,184 @@
 /*
- * Diseño del botón redondeado con efecto hover.
- * En JavaFX, las esquinas redondeadas se logran con -fx-background-radius
- * (ya no hace falta sobrescribir paintComponent como en Swing).
+ * Tema oscuro del explorador de juegos.
+ * En JavaFX las esquinas redondeadas se logran con -fx-background-radius.
  */
+
+/* ---------- Contenedor y textos ---------- */
+.raiz {
+    -fx-background-color: #212529;
+}
+
+.titulo {
+    -fx-font-family: 'Segoe UI';
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.subtitulo {
+    -fx-font-family: 'Segoe UI';
+    -fx-font-size: 13px;
+    -fx-text-fill: #adb5bd;
+}
+
+.estado {
+    -fx-font-family: 'Segoe UI';
+    -fx-font-size: 12px;
+    -fx-text-fill: #adb5bd;
+}
+
+/* ---------- Buscador ---------- */
+.buscador {
+    -fx-font-family: 'Segoe UI';
+    -fx-font-size: 14px;
+    -fx-background-color: #2b3035;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #6c757d;
+    -fx-background-radius: 10;
+    -fx-border-color: #343a40;
+    -fx-border-radius: 10;
+    -fx-padding: 8 14 8 14;
+}
+
+.buscador:focused {
+    -fx-border-color: #ced4da;
+}
+
+/* ---------- Botones ---------- */
 .boton-redondeado {
     -fx-font-family: 'Segoe UI';
     -fx-font-size: 14px;
     -fx-font-weight: bold;
 
-    -fx-text-fill: white;
-    -fx-background-color: #0d6efd;   /* Azul Bootstrap */
+    -fx-text-fill: #212529;
+    -fx-background-color: #ffffff;   /* Blanco */
     -fx-background-radius: 15;       /* Esquinas redondeadas (15 px) */
 
     -fx-padding: 10 20 10 20;
-    -fx-pref-width: 200;
+    -fx-pref-width: 140;
     -fx-pref-height: 40;
     -fx-cursor: hand;
 }
 
-/* EFECTO HOVER: se activa al pasar el mouse por encima */
 .boton-redondeado:hover {
-    -fx-background-color: #0b5ed7;   /* Azul más oscuro */
+    -fx-background-color: #ced4da;   /* Gris claro al pasar el ratón */
+}
+
+.boton-secundario {
+    -fx-font-family: 'Segoe UI';
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+
+    -fx-text-fill: #212529;
+    -fx-background-color: #e9ecef;
+    -fx-background-radius: 15;
+
+    -fx-padding: 10 20 10 20;
+    -fx-pref-height: 40;
+    -fx-cursor: hand;
+}
+
+.boton-secundario:hover {
+    -fx-background-color: #ced4da;
+}
+
+/* ---------- Tabla de juegos ---------- */
+.tabla-juegos {
+    -fx-background-color: #2b3035;
+    -fx-background-radius: 12;
+    -fx-border-color: #343a40;
+    -fx-border-radius: 12;
+    -fx-font-family: 'Segoe UI';
+    -fx-font-size: 13px;
+}
+
+.tabla-juegos .column-header-background {
+    -fx-background-color: #343a40;
+    -fx-background-radius: 12 12 0 0;
+}
+
+.tabla-juegos .column-header,
+.tabla-juegos .filler {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.tabla-juegos .column-header .label {
+    -fx-text-fill: #e9ecef;
+    -fx-font-weight: bold;
+    -fx-alignment: center-left;
+}
+
+.tabla-juegos .table-row-cell {
+    -fx-background-color: #2b3035;
+}
+
+.tabla-juegos .table-row-cell:odd {
+    -fx-background-color: #262b2f;
+}
+
+.tabla-juegos .table-row-cell:selected {
+    -fx-background-color: #495057;
+}
+
+.tabla-juegos .table-cell {
+    -fx-text-fill: #e9ecef;
+    -fx-border-color: transparent;
+    -fx-padding: 6 10 6 10;
+}
+
+.tabla-juegos .placeholder .label {
+    -fx-text-fill: #adb5bd;
+}
+
+/* ---------- Botón dentro de la tabla ---------- */
+.boton-tabla {
+    -fx-font-family: 'Segoe UI';
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #212529;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8;
+    -fx-padding: 4 12 4 12;
+    -fx-cursor: hand;
+}
+
+.boton-tabla:hover {
+    -fx-background-color: #ced4da;
+}
+
+.boton-tabla-secundario {
+    -fx-font-family: 'Segoe UI';
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #212529;
+    -fx-background-color: #e9ecef;
+    -fx-background-radius: 8;
+    -fx-padding: 4 12 4 12;
+    -fx-cursor: hand;
+}
+
+.boton-tabla-secundario:hover {
+    -fx-background-color: #ced4da;
+}
+
+.boton-tabla:disabled,
+.boton-tabla-secundario:disabled {
+    -fx-opacity: 0.45;
+}
+
+/* ---------- Menú contextual ---------- */
+.context-menu {
+    -fx-background-color: #343a40;
+    -fx-background-radius: 8;
+}
+
+.context-menu .menu-item .label {
+    -fx-text-fill: #e9ecef;
+    -fx-font-family: 'Segoe UI';
+    -fx-font-size: 13px;
+}
+
+.context-menu .menu-item:focused {
+    -fx-background-color: #495057;
 }
